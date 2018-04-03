@@ -3,9 +3,9 @@
 
 ### How to use:
 Streamliner usage:  
---url          Provide the full URL to the target webpage that contains emails.  
---file         Provide the local path to the file that contains emails.  
---export       Type the name of the file you want to export (only .txt and .csv)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--url          Provide the full URL to the target webpage that contains emails.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--file         Provide the local path to the file that contains emails.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--export       Type the name of the file you want to export (only .txt and .csv)  
   
 NOTE: For both the URL and the file, the path must end in a text-based file extention such as .html or .txt. The program will throw errors otherwise.
 
