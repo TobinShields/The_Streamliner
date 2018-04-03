@@ -57,7 +57,7 @@ with mailto: links into a txt or csv file.
     otherwise.
 
     Example Usage:
-    the-streamliner.py -u https://www.exmaple.com/staff-directory.html -e staff-emails.txt
+    the-streamliner.py --url https://www.exmaple.com/staff-directory.html --export staff-emails.txt
 
     """)
 
