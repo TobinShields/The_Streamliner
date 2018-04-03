@@ -19,7 +19,7 @@ import sys             # Allow to restart the program and grab more addresses
 import argparse        # Allows the use of flags from the command line
 
 # You can clean up the help lines if you want
-parser = argparse.ArgumentParser(description='"The Streamliner" is a simple Python utility that allows users to target a particular webpage or text file and filter all of the email addresses that contained within it.') #
+parser = argparse.ArgumentParser(description='"The Streamliner" is a simple Python utility that allows users to target a particular webpage or text file and filter all of the email addresses that contained within it.')
 parser.add_argument('--url', help='path to url', type=str) # url flag
 parser.add_argument('--file', help='path to file', type=str) # file flag
 parser.add_argument('--export', help='name of file you want to export to with file extention (txt or csv)', type=str) # export flag
@@ -89,7 +89,7 @@ while True:
         # Store document text as var
         file_contents = open(file_name).read()
         # Fixes a bug in restartPrompt
-        temp = open("site.tmp")
+        temp = open("site.tmp", 'w')
         # Break out of the loop and move on
         break
 
