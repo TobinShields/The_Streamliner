@@ -1,10 +1,13 @@
 #######################################
 #
-# The Streamliner v1.0
+# The Streamliner v1.1
 # Build By: Tobin Shields
 #           Twitter - @TobinShields
 #           Github  - https://github.com/TobinShields/
-#                      
+# Other Contributors:
+#           Trevor Warner
+#           Github  - https://github.com/trevor34/
+#
 #######################################
 
 #Import libs
@@ -13,16 +16,31 @@ import urllib.request  # Allow to grab web URLS and Website Content
 import csv             # Allow for the exporting to a csv file
 import os              # Allow the program to make and remove files
 import sys             # Allow to restart the program and grab more addresses
+import argparse        # Allows the use of flags from the command line
+
+# You can clean up the help lines if you want
+parser = argparse.ArgumentParser(description='"The Streamliner" is a simple Python utility that allows users to target a particular webpage or text file and filter all of the email addresses that contained within it.') #
+parser.add_argument('--url', help='path to url', type=str) # url flag
+parser.add_argument('--file', help='path to file', type=str) # file flag
+parser.add_argument('--export', help='name of file you want to export to with file extention (txt or csv)', type=str) # export flag
+
+args = parser.parse_args() # Allows you to call arguments using args.[argument]
+# Example: args.url
+
+if not args.url == None and not args.file == None:
+    '''If both --url and --file is used, the program is closed'''
+    print("\n\tYou cannot use both --url and --file")
+    exit()
 
 # Print opening Banner
 print("""
- _____ _            _____ _                            _ _                 
-|_   _| |          /  ___| |                          | (_)                
-  | | | |__   ___  \ `--.| |_ _ __ ___  __ _ _ __ ___ | |_ _ __   ___ _ __ 
+ _____ _            _____ _                            _ _
+|_   _| |          /  ___| |                          | (_)
+  | | | |__   ___  \ `--.| |_ _ __ ___  __ _ _ __ ___ | |_ _ __   ___ _ __
   | | | '_ \ / _ \  `--. \ __| '__/ _ \/ _` | '_ ` _ \| | | '_ \ / _ \ '__|
-  | | | | | |  __/ /\__/ / |_| | |  __/ (_| | | | | | | | | | | |  __/ |   
-  \_/ |_| |_|\___| \____/ \__|_|  \___|\__,_|_| |_| |_|_|_|_| |_|\___|_|                                   
-                                                                 Verion 1.0
+  | | | | | |  __/ /\__/ / |_| | |  __/ (_| | | | | | | | | | | |  __/ |
+  \_/ |_| |_|\___| \____/ \__|_|  \___|\__,_|_| |_| |_|_|_|_| |_|\___|_|
+                                                                 Verion 1.1
 
 Fork, Share, and Support this project on github:
 https://github.com/TobinShields/The_Streamliner
@@ -36,14 +54,23 @@ email lists, or web pages with mailto: links into a txt or csv file.
 """)
 
 #Choose between a URL and a saved HTML file
-file_choice = input("Do you want to filter a URL or a saved file? (url/file): ")
+if args.url == None and args.file == None:
+    file_choice = input("Do you want to filter a URL or a saved file? (url/file): ")
+# If a flag was chosen
+elif not args.url == None:
+    file_choice = 'url'
+else:
+    file_choice = 'file'
 
 # Pull Data from source listed
 while True:
     # If they chose a URL
     if file_choice == "url":
         #Grab URL from user
-        url = input("Page URL: ")
+        if not args.url == '':
+            url = input("Page URL: ")
+        else:
+            url = args.url
         # Store HTML into a tmp file. This is removed during cleanup
         # This is done using the urllib.request lib
         urllib.request.urlretrieve(url, "site.tmp")
@@ -55,9 +82,14 @@ while True:
     # If they chose a local file
     elif file_choice == "file":
         # Grab the name of the file fromt he user
-        file_name = input("What file do you want to filter?: ")
+        if args.file == None:
+            file_name = input("What file do you want to filter?: ")
+        else:
+            file_name = args.file
         # Store document text as var
         file_contents = open(file_name).read()
+        # Fixes a bug in restartPrompt
+        temp = open("site.tmp")
         # Break out of the loop and move on
         break
 
@@ -87,13 +119,18 @@ print("|======== A total of " + str(len(email_list)) + " email addresses were on
 
 # Prompt to export to another file
 print("\n")
-export = input("Do you want to export this list? (y/n): ")
+if args.export == None:
+    export = input("Do you want to export this list? (y/n): ")
+else:
+    export = 'y'
 
 # Create the restart function that will be called at the end of building the file
 def restartPrompt(file_type):
     print("The file has been exported as a file called " + full_file_name + ". Thanks for using The Streamliner!")
     print("\n")
     restart = input("Want to find more emails? (y/n): ")
+    temp.close()
+    file_contents.close()
     if restart == "y":
         # Clean up and remove the tmp file using the os lib
         os.remove("site.tmp")
@@ -110,10 +147,14 @@ def restartPrompt(file_type):
 if export == "y":
     while True:
         # Build file name
-        file_type = input("What kind of fileype (txt/csv): ")
-        file_name = input("What do you want to name the file? (Extension will be applied automatically): ")
-        full_file_name = file_name + "." + file_type
-        
+        if args.export == None:
+            file_type = input("What kind of fileype (txt/csv): ")
+            file_name = input("What do you want to name the file? (Extension will be applied automatically): ")
+            full_file_name = file_name + "." + file_type
+        else:
+            full_file_name = args.export
+            file_type = args.export[-3:]
+
         # If txt is chosen, write it out
         if file_type == "txt":
             # Make the file and allow writing to it
@@ -126,7 +167,7 @@ if export == "y":
             # Restart the program
             restartPrompt(file_type)
 
-        # If csv is chosen, write it out    
+        # If csv is chosen, write it out
         elif file_type == "csv":
             # Using the csv lib make the file and write out to a new line per entry
             with open(full_file_name, "w") as output:
@@ -143,5 +184,3 @@ if export == "y":
 # If they say no to exporting
 else:
     print("That's alright--Thanks for using the program!")
-
-
