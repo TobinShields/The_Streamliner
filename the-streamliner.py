@@ -130,7 +130,8 @@ def restartPrompt(file_type):
     print("\n")
     restart = input("Want to find more emails? (y/n): ")
     temp.close()
-    file_contents.close()
+    if file_choice == 'url':
+        file_contents.close()
     if restart == "y":
         # Clean up and remove the tmp file using the os lib
         os.remove("site.tmp")
