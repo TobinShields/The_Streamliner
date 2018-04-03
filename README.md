@@ -2,7 +2,7 @@
 >"The Streamliner" is a simple Python utility that allows users to target a particular webpage or text file and filter all of the email addresses that contained within it. Written using Python 3, this tool is especially useful when distilling large web directories, cluttered or poorly formatted email lists, or web pages with mailto: links into a txt or csv file
 
 ### How to use:
-Streamliner usage:
+Streamliner usage:  
 --url          Provide the full URL to the target webpage that contains emails.  
 --file         Provide the local path to the file that contains emails.  
 --export       Type the name of the file you want to export (only .txt and .csv)  
