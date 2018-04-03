@@ -129,7 +129,8 @@ def restartPrompt(file_type):
     print("The file has been exported as a file called " + full_file_name + ". Thanks for using The Streamliner!")
     print("\n")
     restart = input("Want to find more emails? (y/n): ")
-    temp.close()
+    if file_choice == 'file':
+        temp.close()
     if file_choice == 'url':
         file_contents.close()
     if restart == "y":
