@@ -1,9 +1,10 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-    The Streamliner - v1.1.1
+    The Streamliner - v1.1.2
     Created by: Tobin Shields
-    Other contributors: Trevor Warner
+    Other contributors: Trevor Warner, Jacob Bickle
+                        
     Github: https://github.com/TobinShields/The_Streamliner
 
 ## Types of changes
@@ -20,8 +21,16 @@ All notable changes to this project will be documented in this file. The format 
 * A big future idea would be to somehow spider an entire site and go looking for addresses. This would be a HUGE upgrade, but is also a much larger project that the current application scope. Version 2.0?
 * Are there any other file types that are good to export to? I was thinking about an easy to way to then use the exported file to import for something like a mass mailer or store in a DB.
 
-## [1.1.1] - 2018-04-03
+## [1.1.2] - 2018-04-04
+### Added
+- New shorter flags (-u, -f, -e) in combination with the existing ones
+- Cleaned up some language around file exporting
+
 ### Changed
+- Removed the need for a temp file by storing the requested URL in memory using a different library (no longer need the is import).
+
+## [1.1.1] - 2018-04-03
+### Removed
 - Removed all instances of asking the user for prompts, now the program just takes the flags via the command line
 
 ## [1.1] - 2018-04-02
