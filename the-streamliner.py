@@ -1,12 +1,14 @@
 #######################################
 #
-# The Streamliner v1.1
+# The Streamliner v1.1.2
 # Build By: Tobin Shields
 #           Twitter - @TobinShields
 #           Github  - https://github.com/TobinShields/
 # Other Contributors:
 #           Trevor Warner
 #           Github  - https://github.com/trevor34/
+#           Jacob Bickle
+#           Github - https://github.com/jake-bickle
 #
 #######################################
 
