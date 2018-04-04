@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [1.1.1] - 2018-04-03
 ### Changed
--Removed all instances of asking the user for prompts, now the program just takes the flags via the command line
+- Removed all instances of asking the user for prompts, now the program just takes the flags via the command line
 
 ## [1.1] - 2018-04-02
 ### Added
@@ -32,5 +32,5 @@ All notable changes to this project will be documented in this file. The format 
 - Bug where site.tmp is not closed before removing, leading to an error fixed
 ## [1.0] - 2018-03-30
 ### Added
-1. Original upload
-2. Github page built
+- Original upload
+- Github page built
