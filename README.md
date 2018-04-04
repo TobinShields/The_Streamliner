@@ -10,7 +10,7 @@ Streamliner usage:
 NOTE: For both the URL and the file, the path must end in a text-based file extention such as .html or .txt. The program will throw errors otherwise.
 
 Example Usage:
->the-streamliner.py --url https://www.exmaple.com/staff-directory.html --export staff-emails.txt
+>the-streamliner.py --url https://www.exmaple.com/staff-directory.html --export staff-emails.txt  
 >the-streamliner.py -f contact-page.txt -e contact-list.csv
 
 ## Disclamer
