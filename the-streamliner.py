@@ -14,9 +14,9 @@
 import re              # Allow the use of the findall() function
 import urllib.request  # Allow to grab web URLS and Website Content
 import csv             # Allow for the exporting to a csv file
-import os              # Allow the program to make and remove files
 import sys             # Allow to check if arguments are passed through
 import argparse        # Allows the use of flags from the command line
+import io              # Allows for text stream buffer
 
 # You can clean up the help lines if you want
 parser = argparse.ArgumentParser(description='"The Streamliner" is a simple Python utility that allows users to target a particular webpage or text file and filter all of the email addresses that contained within it. This tool is especially useful when distilling large web directories, cluttered or poorly formatted email lists, or web pages with mailto: links into a txt or csv file.')
@@ -66,12 +66,9 @@ else:
     # If user entered a URL as an argument
     if args.url:
         url = args.url
-        # Store HTML into a tmp file. This is removed during cleanup. This is done using the urllib.request lib import
-        urllib.request.urlretrieve(url, "site.tmp")
-        # Store all data from that file into a var using open()
-        file_contents = open("site.tmp").read()
-        # Cleanup and remove the .tmp file
-        os.remove("site.tmp")
+        u = urllib.request.urlopen(url, data=None)
+        file = io.TextIOWrapper(u, encoding='utf-8')
+        file_contents = file.read()
     elif args.file:
         file_name = args.file
         # Store document text as var
@@ -111,7 +108,7 @@ else:
             # Close the connection and disable editing
             writeOut.close()
             print("\n")
-            print("Your file has been exported as saved as " + full_file_name)
+            print("Your file has been exported as saved as " + full_file_name + " within current working directory.")
 
         # If csv is chosen, write it out
         elif file_type == "csv":
