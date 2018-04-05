@@ -1,6 +1,6 @@
 #######################################
 #
-# The Streamliner v1.1.2
+# The Streamliner v1.1.3
 # Build By: Tobin Shields
 #           Twitter - @TobinShields
 #           Github  - https://github.com/TobinShields/
@@ -19,6 +19,8 @@ import csv             # Allow for the exporting to a csv file
 import sys             # Allow to check if arguments are passed through
 import argparse        # Allows the use of flags from the command line
 import io              # Allows for text stream buffer
+import urllib.error    # Tests if a url exists
+import os.path         # Tests if a file exists
 
 # You can clean up the help lines if you want
 parser = argparse.ArgumentParser(description='"The Streamliner" is a simple Python utility that allows users to target a particular webpage or text file and filter all of the email addresses that contained within it. This tool is especially useful when distilling large web directories, cluttered or poorly formatted email lists, or web pages with mailto: links into a txt or csv file.')
@@ -38,7 +40,7 @@ if not len(sys.argv) > 1:
   | | | '_ \ / _ \  `--. \ __| '__/ _ \/ _` | '_ ` _ \| | | '_ \ / _ \ '__|
   | | | | | |  __/ /\__/ / |_| | |  __/ (_| | | | | | | | | | | |  __/ |
   \_/ |_| |_|\___| \____/ \__|_|  \___|\__,_|_| |_| |_|_|_|_| |_|\___|_|
-                                                            Verion 1.1.1
+                                                            Verion 1.1.3
 
 Fork, Share, and Support this project on github:
 https://github.com/TobinShields/The_Streamliner
@@ -68,11 +70,24 @@ else:
     # If user entered a URL as an argument
     if args.url:
         url = args.url
-        u = urllib.request.urlopen(url, data=None)
+        # Error handling
+        try: urllib.request.urlopen(url) # Tries to open the url
+        except urllib.error.URLError: # If the website does not exist, raise this error
+            print("Error: This url does not exist.\n\tCheck the url and try again")
+            quit()
+        except ValueError: # If you did not add http or https, raise this error
+            print("Error: You did not specify http or https\n\tAdd one and try again")
+            quit()
+        else: # If website exists, do this and continue
+            u = urllib.request.urlopen(url, data=None)
         file = io.TextIOWrapper(u, encoding='utf-8')
         file_contents = file.read()
     elif args.file:
         file_name = args.file
+        # Error handling
+        if not os.path.isfile(file_name): # Tests if the file exists
+            print("Error: This file does not exist.\n\tCheck the local path and try again.")
+            quit()
         # Store document text as var
         file_contents = open(file_name).read()
 
@@ -84,7 +99,7 @@ else:
     # Loop through and find all emails and append them to the list
     for email in found_emails:
         email_list.append(email)
-    # Remove all duplicates fromt he list
+    # Remove all duplicates from the list
     email_list = list(set(email_list))
     # Print everything in the list, and sepereate each list item with a line break
     print("\n")
