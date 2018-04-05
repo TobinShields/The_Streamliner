@@ -85,7 +85,7 @@ else:
     elif args.file:
         file_name = args.file
         # Error handling
-        if not os.path.isfile(file_name):
+        if not os.path.isfile(file_name): # Tests if the file exists
             print("Error: This file does not exist.\n\tCheck the local path and try again.")
             quit()
         # Store document text as var
