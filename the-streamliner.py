@@ -1,6 +1,6 @@
 #######################################
 #
-# The Streamliner v1.1.3
+# The Streamliner v1.1.4
 # Build By: Tobin Shields
 #           Twitter - @TobinShields
 #           Github  - https://github.com/TobinShields/
@@ -40,7 +40,7 @@ if not len(sys.argv) > 1:
   | | | '_ \ / _ \  `--. \ __| '__/ _ \/ _` | '_ ` _ \| | | '_ \ / _ \ '__|
   | | | | | |  __/ /\__/ / |_| | |  __/ (_| | | | | | | | | | | |  __/ |
   \_/ |_| |_|\___| \____/ \__|_|  \___|\__,_|_| |_| |_|_|_|_| |_|\___|_|
-                                                            Verion 1.1.3
+                                                            Verion 1.1.4
 
 Fork, Share, and Support this project on github:
 https://github.com/TobinShields/The_Streamliner
