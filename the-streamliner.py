@@ -70,16 +70,34 @@ else:
     # If user entered a URL as an argument
     if args.url:
         url = args.url
+
+        # This is header information. It requests the website
+        # posing as Mozilla, and somehow it fixes the issue where
+        # you couldn't get websites that don't have '.html' on the end.
+        # But because of this, websites with invalid top level domain name
+        # pass through the error filters, but this shouldn't happen in regular use.
+        hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+               'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+               'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+               'Accept-Encoding': 'none',
+               'Accept-Language': 'en-US,en;q=0.8',
+               'Connection': 'keep-alive'}
+
+        req = urllib.request.Request(url, headers=hdr) # What the program will use to request the url
+
         # Error handling
-        try: urllib.request.urlopen(url) # Tries to open the url
+        try: u = urllib.request.urlopen(req) # Tries to open the url, also assigns the variable if it passes
+        except urllib.error.HTTPError as e: # If the website returns an HTTP error, such as a 404, raise this error
+            print("The website you were requesting raised a " + str(e.code) + " - " + e.reason + " Error.") # e.code displays the error code, e.reason displays the reason for the code
+            quit()
         except urllib.error.URLError: # If the website does not exist, raise this error
             print("Error: This url does not exist.\n\tCheck the url and try again")
             quit()
         except ValueError: # If you did not add http or https, raise this error
             print("Error: You did not specify http or https\n\tAdd one and try again")
             quit()
-        else: # If website exists, do this and continue
-            u = urllib.request.urlopen(url, data=None)
+
+        # If website exists, continue
         file = io.TextIOWrapper(u, encoding='utf-8')
         file_contents = file.read()
     elif args.file:
